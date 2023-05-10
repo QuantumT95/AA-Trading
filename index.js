@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const ejs = require('ejs');
 const createPostRoute = require("./server/routes/createpost");
+require("./mongoose");
+
 
 const app = express();
 
