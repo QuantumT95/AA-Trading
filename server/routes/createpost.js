@@ -33,22 +33,25 @@ router.post("/", (req, res) => {
     const postText = req.body.postText;
     const trade = req.body.trade;
     const want = req.body.want;
-    const isOpen = req.body.isOpen === "true";
+    const isOpen = req.body.isOpen;
+    
+    // Get the user's Discord ID
+    const userDiscordId = req.user.id;
 
     // Create a new post and save it to the database
     const post = new Post({
-      userDiscordId: req.user.id,
+      userDiscordId,
       text: postText,
-      trade: trade,
-      want: want,
-      isOpen: isOpen,
+      trade,
+      want,
+      isOpen,
     });
-    post.save((err) => {
+    newPost.save((err, post) => {
       if (err) {
         console.log(err);
-        res.send("Error saving post to database.");
+        res.redirect("/createpost");
       } else {
-        // Redirect the user to the welcome page
+        console.log("Successfully created a new post!");
         res.redirect("/welcome");
       }
     });
