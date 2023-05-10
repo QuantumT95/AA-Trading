@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to AA Trading!</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+  </head>
+  <body>
+    <header>Welcome to AA Trading!</header>
+    <main>
+    <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
+    <p>
+			<% if (user) { %>
+      <p>Welcome, <%= user.username %>!</p>
+    <% } else { %>
+      <a href="/auth/discord">Login with Discord</a>
+    <% } %>
+		</p>
+  </body>
+  </main>
+  <footer>
+		<p>AA Trading &copy; 2023</p>
+	</footer>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome <%= user.username %></title>
+</head>
+<body>
+  <h1>Welcome, <%= user.username %>!</h1>
+  <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" alt="Profile picture">
+  <form method="POST" action="/createpost">
+
+  <label for="trade">What I'm trading:</label>
+  <input type="text" id="trade" name="trade">
+
+  <label for="want">What I want for the trade:</label>
+  <input type="text" id="want" name="want">
+
+  <label for="isOpen">Open for offers?</label>
+  <input type="checkbox" id="isOpen" name="isOpen" value="true">
+
+  <label for="postText">Notes:</label>
+  <textarea id="postText" name="postText"></textarea>
+
+  <button type="submit">Create post</button>
+</form>
+</body>
+</html>

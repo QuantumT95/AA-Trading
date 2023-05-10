@@ -1,0 +1,45 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+const cors = require("cors");
+const routes = require("./routes");
+
+const app = express();
+
+// Connect to MongoDB database
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+// Use session middleware
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: db }),
+    cookie: { secure: true },
+  })
+);
+
+// Use CORS middleware
+app.use(cors());
+
+// Use JSON middleware
+app.use(express.json());
+
+// Use routes
+app.use("/", routes);
+
+// Start server
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server started on port ${process.env.PORT || 3000}`);
+});
