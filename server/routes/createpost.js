@@ -1,26 +1,11 @@
 const express = require("express");
 const router = express.Router();
+require("../../mongoose");
 
 router.get("/", (req, res) => {
   if (req.isAuthenticated()) {
     // Render the create post form
     res.render("createpost");
-  } else {
-    // Redirect to the login page
-    res.redirect("/login");
-  }
-});
-
-router.post("/", (req, res) => {
-  if (req.isAuthenticated()) {
-    // Get the post data from the form
-    const postText = req.body.postText;
-
-    // Create a new post and save it to the database
-    // ...
-
-    // Redirect the user to the welcome page
-    res.redirect("/welcome");
   } else {
     // Redirect to the login page
     res.redirect("/login");
@@ -38,15 +23,15 @@ router.post("/", (req, res) => {
     // Get the user's Discord ID
     const userDiscordId = req.user.id;
 
-    // Create a new post and save it to the database
-    const post = new Post({
+    // Create a new post and insert it into the database
+    const post = {
       userDiscordId,
       text: postText,
       trade,
       want,
       isOpen,
-    });
-    newPost.save((err, post) => {
+    };
+    db.collection("Posts").insertOne(post, (err, result) => {
       if (err) {
         console.log(err);
         res.redirect("/createpost");
@@ -60,36 +45,5 @@ router.post("/", (req, res) => {
     res.redirect("/login");
   }
 });
-
-
-// router.post("/", async (req, res) => {
-//   if (req.isAuthenticated()) {
-//     // Get the post data from the form
-//     const { postText, trade, want, isOpen } = req.body;
-
-//     // Create a new post and save it to the database
-//     try {
-//       const newPost = await Post.create({
-//         userDiscordId: req.user.id,
-//         text: postText,
-//         trade: trade,
-//         want: want,
-//         isOpen: isOpen === "on", // checkbox will send "on" string if checked
-//       });
-//       console.log("New post created:", newPost);
-//     } catch (error) {
-//       console.error("Error creating new post:", error);
-//       // Redirect the user to the welcome page with an error message
-//       return res.render("createpost", { error: "Failed to create new post." });
-//     }
-
-//     // Redirect the user to the welcome page
-//     res.redirect("/welcome");
-//   } else {
-//     // Redirect to the login page
-//     res.redirect("/login");
-//   }
-// });
-
 
 module.exports = router;
