@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-require("../../mongoose");
+const { client, connect } = require('../../mongo.js');
 
 router.get("/", (req, res) => {
   if (req.isAuthenticated()) {
@@ -31,7 +31,11 @@ router.post("/", (req, res) => {
       want,
       isOpen,
     };
-    db.collection("Posts").insertOne(post, (err, result) => {
+
+    const db = client.db("AA-Posts");
+    const postsCollection = db.collection("Posts");
+    
+    postsCollection.insertOne(post, (err, result) => {
       if (err) {
         console.log(err);
         res.redirect("/createpost");
@@ -42,7 +46,7 @@ router.post("/", (req, res) => {
     });
   } else {
     // Redirect to the login page
-    res.redirect("/login");
+    res.redirect("/welcome");
   }
 });
 
