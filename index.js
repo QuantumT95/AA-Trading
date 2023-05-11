@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const ejs = require('ejs');
 const createPostRoute = require("./server/routes/createpost");
+const postsRoute = require("./routes/posts");
 require("./mongoose");
 
 
@@ -124,6 +125,8 @@ app.get("/welcome", (req, res) => {
 // });
 
 app.use("/createpost", createPostRoute);
+
+app.use("/posts", postsRoute);
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");
