@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const ejs = require('ejs');
 const createPostRoute = require("./server/routes/createpost");
-const postsRoute = require("./routes/posts");
+const postsRoute = require("./server/routes/all-posts");
+const homeRoutes = require("./server/routes/home");
+const Post = require("./server/model/post");
 require("./mongoose");
 
 
@@ -58,15 +60,27 @@ passport.use(
   )
 );
 
-const posts = []; // Define an empty array to store posts
+// Define an empty array to store posts
+// const posts = []; 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get('/', (req, res) => {
-  res.render('index', { user: req.session.user });
+app.get("/", async (req, res) => {
+  const user = req.user;
+  try {
+    const posts = await Post.find();
+    res.render("home", { user: user, posts: posts });
+  } catch (err) {
+    console.log(err);
+  }
 });
+
+
+// app.get('/', (req, res) => {
+//   res.render('index', { user: req.session.user });
+// });
 
 app.get(
   "/auth/discord",

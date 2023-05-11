@@ -1,0 +1,44 @@
+<!-- views/home.ejs -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome to AA Trading!</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+  </head>
+  <body>
+    <a href="/" class="btn btn-primary">Home</a>
+    <header>Welcome to AA Trading!</header>
+    <main>
+    <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
+    <h1>All Posts</h1>
+    <ul>
+      <% posts.forEach(function(post) { %>
+        <li>
+          <p><%= post.text %></p>
+          <p>Trade: <%= post.trade %></p>
+          <p>Want: <%= post.want %></p>
+          <p>Is Open: <%= post.isOpen %></p>
+          <p>Posted by: <%= post.userDiscordId %></p>
+        </li>
+      <% }); %>
+    </ul>
+    <p>
+			<% if (user) { %>
+      <p>Welcome, <%= user.username %>!</p>
+    <% } else { %>
+      <a href="/auth/discord">Login with Discord</a>
+    <% } %>
+		</p>
+  </body>
+  </main>
+  <footer>
+		<p>AA Trading &copy; 2023</p>
+	</footer>
+</html>
+
+
+
+
+
+

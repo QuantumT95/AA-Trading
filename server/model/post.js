@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const postSchema = new mongoose.Schema({
   userDiscordId: {
     type: String,
@@ -24,3 +26,7 @@ const postSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+const Post = mongoose.model("Post", postSchema);
+
+module.exports = Post;
