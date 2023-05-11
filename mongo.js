@@ -1,5 +1,6 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const mySecretDB = process.env['MONGOD_PASSWORD']
+const mongoose = require('mongoose');
 
 const uri = "mongodb+srv://dbGOD:"+mySecretDB+"@atlascluster.qvihzep.mongodb.net/?retryWrites=true&w=majority";
 
@@ -10,6 +11,18 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   }
+});
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to the database!');
 });
 
 async function connect() {
@@ -24,4 +37,4 @@ async function connect() {
   }
 }
 
-module.exports = { client, connect };
+module.exports = { db, client, connect };
