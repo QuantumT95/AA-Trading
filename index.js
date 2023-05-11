@@ -70,13 +70,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", async (req, res) => {
   const user = req.user;
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({});
+    console.log(posts); // check if posts are being fetched correctly
     res.render("home", { user: user, posts: posts });
   } catch (err) {
     console.log(err);
   }
 });
-
 
 // app.get('/', (req, res) => {
 //   res.render('index', { user: req.session.user });
@@ -95,21 +95,36 @@ app.get(
   }
 );
 
-app.get("/welcome", (req, res) => {
+app.get("/welcome", async (req, res) => {
   if (req.isAuthenticated()) {
-    const { username, discriminator, avatar } = req.user;
+    const user = req.user;
 
-    console.log(req.user);
-    
-    // Retrieve all posts from your database
-    // ...
-
-    // Render the welcome template with user and posts data
-    res.render("welcome", { user: req.user, posts: posts });
+    try {
+      const posts = await Post.find();
+      res.render("welcome", { user, posts });
+    } catch (err) {
+      console.log(err);
+    }
   } else {
     res.redirect("/");
   }
 });
+
+// app.get("/welcome", (req, res) => {
+//   if (req.isAuthenticated()) {
+//     const { username, discriminator, avatar } = req.user;
+
+//     console.log(req.user);
+    
+//     // Retrieve all posts from your database
+//     // ...
+
+//     // Render the welcome template with user and posts data
+//     res.render("welcome");
+//   } else {
+//     res.redirect("/");
+//   }
+// });
 
 // app.post('/createpost', (req, res) => {
 //   // Get the post text from the request body
