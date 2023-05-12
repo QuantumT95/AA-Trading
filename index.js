@@ -70,7 +70,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", async (req, res) => {
   const user = req.user;
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({});
     console.log(posts); // check if posts are being fetched correctly
     res.render("home", { user: user, posts: posts });
   } catch (err) {

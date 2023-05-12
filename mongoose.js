@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const mongoURI = process.env.MONGO_URI; // your MongoDB URI
 const mySecretDB = process.env['MONGOD_PASSWORD']
 
 const uri = "mongodb+srv://dbGOD:"+mySecretDB+"@atlascluster.qvihzep.mongodb.net/?retryWrites=true&w=majority";
