@@ -34,8 +34,8 @@ router.post("/", (req, res) => {
       createdAt,
     };
 
-    const db = client.db("AA-Posts");
-    const postsCollection = db.collection("Posts");
+    const db = client.db("test");
+    const postsCollection = db.collection("posts");
     
     postsCollection.insertOne(post, (err, result) => {
       if (err) {
