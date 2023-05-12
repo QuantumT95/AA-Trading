@@ -3,10 +3,10 @@
 <ul>
   <% posts.forEach(function(post) { %>
     <li>
-      <p><%= post.text %></p>
-      <p>Trade: <%= post.trade %></p>
-      <p>Want: <%= post.want %></p>
-      <p>Is Open: <%= post.isOpen %></p>
+      <p>Notes: <%= post.text %></p>
+      <p>Trading: <%= post.trade %></p>
+      <p>Wants: <%= post.want %></p>
+      <p>Open to Offers: <%= post.isOpen %></p>
       <p>Posted by: <%= post.userDiscordId %></p>
     </li>
   <% }); %>
