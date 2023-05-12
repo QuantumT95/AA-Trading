@@ -29,12 +29,12 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
-Post.find({}).exec()
-  .then(posts => {
-    console.log(posts);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+// Post.find({}).exec()
+//   .then(posts => {
+//     console.log(posts);
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
 
 module.exports = Post;

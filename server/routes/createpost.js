@@ -19,6 +19,7 @@ router.post("/", (req, res) => {
     const trade = req.body.trade;
     const want = req.body.want;
     const isOpen = req.body.isOpen;
+    const createdAt = new Date();
     
     // Get the user's Discord ID
     const userDiscordId = req.user.id;
@@ -30,6 +31,7 @@ router.post("/", (req, res) => {
       trade,
       want,
       isOpen,
+      createdAt,
     };
 
     const db = client.db("AA-Posts");
