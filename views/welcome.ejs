@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome <%= user.username %></title>
+  <link rel="stylesheet" href="../public/css/style.css" />
 </head>
 <body>
   <a href="/" class="btn btn-primary">Home</a>
@@ -10,8 +11,20 @@
   <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" alt="Profile picture">
   <form method="POST" action="/createpost">
 
-  <label for="trade">What I'm trading:</label>
-  <input type="text" id="trade" name="trade">
+  <!-- <label for="trade">What I'm trading:</label>
+  <input type="text" id="trade" name="trade"> -->
+
+  <div class="directorist-select directorist-select-multi" id="multiSelect" data-isSearch="true" data-multiSelect='[{value: "abul", key: 0}]' data-max="5">
+  <select name="trade">
+    <option value="">Select Item</option>
+    <option value="abul">Abul</option>
+    <option value="bacco">Bacco</option>
+    <option value="bodri">Bodri</option>
+    <option value="canmia">Canmia</option>
+    <option value="choncol">Choncol</option>
+    <option value="condon">Condon</option>
+  </select>
+</div>
 
   <label for="want">What I want for the trade:</label>
   <input type="text" id="want" name="want">
@@ -24,5 +37,8 @@
 
   <button type="submit">Create post</button>
 </form>
+   <script src="../utils/script.js">
+    pureScriptSelect('#multiSelect');
+  </script>
 </body>
 </html>
