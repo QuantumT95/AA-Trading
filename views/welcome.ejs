@@ -11,10 +11,10 @@
   <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" alt="Profile picture">
   <form method="POST" action="/createpost">
 
-  <!-- <label for="trade">What I'm trading:</label>
-  <input type="text" id="trade" name="trade"> -->
+    <!-- <label for="trade">What I'm trading:</label>
+    <input type="text" id="trade" name="trade"> -->
 
-  <div class="directorist-select directorist-select-multi" id="multiSelect" data-isSearch="true" data-multiSelect='[{value: "abul", key: 0}]' data-max="5">
+    <div class="directorist-select directorist-select-multi" id="multiSelect" data-isSearch="true" data-multiSelect='[{value: "abul", key: 0}]' data-max="5">
   <select name="trade">
     <option value="">Select Item</option>
     <option value="abul">Abul</option>
@@ -26,18 +26,20 @@
   </select>
 </div>
 
-  <label for="want">What I want for the trade:</label>
-  <input type="text" id="want" name="want">
+    <label for="want">What I want for the trade:</label>
+    <input type="text" id="want" name="want">
 
-  <label for="isOpen">Open for offers?</label>
-  <input type="checkbox" id="isOpen" name="isOpen" value="true">
+    <label for="isOpen">Open for offers?</label>
+    <input type="checkbox" id="isOpen" name="isOpen" value="true">
 
-  <label for="postText">Notes:</label>
-  <textarea id="postText" name="postText"></textarea>
+    <label for="postText">Notes:</label>
+    <textarea id="postText" name="postText"></textarea>
 
-  <button type="submit">Create post</button>
-</form>
-   <script src="../utils/script.js">
+    <button type="submit">Create post</button>
+  </form>
+
+  <script src="../utils/script.js"></script>
+  <script>
     pureScriptSelect('#multiSelect');
   </script>
 </body>
