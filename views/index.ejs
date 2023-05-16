@@ -10,6 +10,11 @@
     <header>Welcome to AA Trading!</header>
     <main>
     <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
+    <form action="/search" method="GET">
+      <input type="text" name="trade" placeholder="Search for trades">
+      <input type="text" name="want" placeholder="Search for wants">
+      <button type="submit">Search</button>
+    </form>
     <% for (let post of posts) { %>
     <div class="post">
       <p><%= post.text %></p>

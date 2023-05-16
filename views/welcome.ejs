@@ -6,6 +6,9 @@
     <link href="
 https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
 " rel="stylesheet">
+  <script>
+    const validUnits = <%- JSON.stringify(validUnits) %>;
+  </script>
 </head>
 <body>
   <a href="/" class="btn btn-primary">Home</a>
@@ -16,22 +19,29 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
     <!-- <label for="trade">What I'm trading:</label>
     <input type="text" id="trade" name="trade"> -->
 
-    <div class="ui fluid search selection dropdown">
-      <input type="hidden" name="trade">
-      <i class="dropdown icon"></i>
-      <div class="default text">Select Item</div>
-      <div class="menu">
-        <div class="item" data-value="abul">Abul</div>
-        <div class="item" data-value="bacco">Bacco</div>
-        <div class="item" data-value="bodri">Bodri</div>
-        <div class="item" data-value="canmia">Canmia</div>
-        <div class="item" data-value="choncol">Choncol</div>
-        <div class="item" data-value="condon">Condon</div>
-      </div>
-    </div>
+    <div class="ui multiple search selection dropdown" id="itemDropdown">
+  <input type="hidden" name="trade">
+  <i class="dropdown icon"></i>
+  <div class="default text">I am trading</div>
+  <div class="menu">
+    <% validUnits.forEach(function(unit) { %>
+      <div class="item" data-value="<%= unit %>"><%= unit %></div>
+    <% }); %>
+  </div>
+</div>
 
-    <label for="want">What I want for the trade:</label>
-    <input type="text" id="want" name="want">
+
+
+    <div class="ui multiple search selection dropdown" id="itemDropdown">
+  <input type="hidden" name="want">
+  <i class="dropdown icon"></i>
+  <div class="default text">What I want</div>
+  <div class="menu">
+    <% validUnits.forEach(function(unit) { %>
+      <div class="item" data-value="<%= unit %>"><%= unit %></div>
+    <% }); %>
+  </div>
+</div>
 
     <label for="isOpen">Open for offers?</label>
     <input type="checkbox" id="isOpen" name="isOpen" value="true">

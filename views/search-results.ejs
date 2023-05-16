@@ -1,0 +1,28 @@
+<h1>Search Results</h1>
+
+<p>Showing results for:
+  <% if (trade) { %>
+    Trade: <%= trade %>
+  <% } %>
+  <% if (trade && want) { %> and <% } %>
+  <% if (want) { %>
+    Want: <%= want %>
+  <% } %>
+</p>
+
+<% if (posts.length > 0) { %>
+  <ul>
+    <% posts.forEach((post) => { %>
+      <li>
+        <p>Notes: <%= post.text %></p>
+        <p>Trading: <%= post.trade %></p>
+        <p>Wants: <%= post.want %></p>
+        <p>Open to Offers: <%= post.isOpen %></p>
+        <p>Posted by: <%= post.userDiscordId %></p>
+      </li>
+      <!-- Display other relevant post information -->
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>No results found.</p>
+<% } %>

@@ -11,6 +11,7 @@ const postsRoute = require("./server/routes/all-posts");
 const homeRoutes = require("./server/routes/home");
 const Post = require("./server/model/post");
 require("./mongoose");
+const validUnits = require('./utils/units');
 
 
 const app = express();
@@ -60,9 +61,6 @@ passport.use(
   )
 );
 
-// Define an empty array to store posts
-// const posts = []; 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -72,15 +70,11 @@ app.get("/", async (req, res) => {
   try {
     const posts = await Post.find({});
     console.log(posts); // check if posts are being fetched correctly
-    res.render("home", { user: user, posts: posts });
+    res.render("home", { user: user, posts: posts, validUnits });
   } catch (err) {
     console.log(err);
   }
 });
-
-// app.get('/', (req, res) => {
-//   res.render('index', { user: req.session.user });
-// });
 
 app.get(
   "/auth/discord",
@@ -101,57 +95,37 @@ app.get("/welcome", async (req, res) => {
 
     try {
       const posts = await Post.find();
-      res.render("welcome", { user, posts });
+      res.render("welcome", { user, posts, validUnits });
     } catch (err) {
       console.log(err);
+      res.redirect("/");
     }
   } else {
     res.redirect("/");
   }
 });
 
-// app.get("/welcome", (req, res) => {
-//   if (req.isAuthenticated()) {
-//     const { username, discriminator, avatar } = req.user;
+app.get("/search", async (req, res) => {
+  const { trade, want } = req.query;
+  let query = {};
 
-//     console.log(req.user);
-    
-//     // Retrieve all posts from your database
-//     // ...
+  if (trade) {
+    query.trade = { $regex: trade, $options: "i" };
+  }
 
-//     // Render the welcome template with user and posts data
-//     res.render("welcome");
-//   } else {
-//     res.redirect("/");
-//   }
-// });
+  if (want) {
+    query.want = { $regex: want, $options: "i" };
+  }
 
-// app.post('/createpost', (req, res) => {
-//   // Get the post text from the request body
-//   const postText = req.body.postText;
+  try {
+    const posts = await Post.find(query);
 
-//   // Use the Discord access token to get the user's name and profile picture
-//   const discordAPI = `https://discord.com/api/v8/users/@me`;
-//   const headers = {
-//     Authorization: `Bearer ${req.session.passport.user.accessToken}`
-//   };
-
-//   axios.get(discordAPI, { headers })
-//     .then(response => {
-//       const discordName = response.data.username;
-//       const discordProfilePicture = `https://cdn.discordapp.com/avatars/${response.data.id}/${response.data.avatar}.png`;
-
-//       // Save the post to your database
-//       // ...
-
-//       // Redirect the user back to the welcome page
-//       res.redirect('/welcome');
-//     })
-//     .catch(error => {
-//       console.error(error);
-//       res.status(500).send('Error creating post');
-//     });
-// });
+    res.render("search-results", { posts, trade, want });
+  } catch (err) {
+    console.log(err);
+    res.redirect("/");
+  }
+});
 
 app.use("/createpost", createPostRoute);
 

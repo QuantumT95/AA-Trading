@@ -4,7 +4,12 @@
   <head>
     <meta charset="utf-8">
     <title>Welcome to AA Trading!</title>
-    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <link href="
+https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
+" rel="stylesheet">
+  <script>
+    const validUnits = <%- JSON.stringify(validUnits) %>;
+  </script>
   </head>
   <body>
     <a href="/" class="btn btn-primary">Home</a>
@@ -12,6 +17,29 @@
     <header>Welcome to AA Trading!</header>
     <main>
     <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
+    <form action="/search" method="GET">
+      <div class="ui multiple search selection dropdown" id="itemDropdown">
+        <input type="hidden" name="trade">
+        <i class="dropdown icon"></i>
+        <div class="default text">Search for trades</div>
+        <div class="menu">
+          <% validUnits.forEach(function(unit) { %>
+            <div class="item" data-value="<%= unit %>"><%= unit %></div>
+          <% }); %>
+        </div>
+      </div>
+      <div class="ui multiple search selection dropdown" id="itemDropdown">
+        <input type="hidden" name="want">
+        <i class="dropdown icon"></i>
+        <div class="default text">Search for wants</div>
+        <div class="menu">
+          <% validUnits.forEach(function(unit) { %>
+            <div class="item" data-value="<%= unit %>"><%= unit %></div>
+          <% }); %>
+        </div>
+      </div>
+      <button type="submit">Search</button>
+    </form>
     <h1>All Posts</h1>
     <ul>
       <% posts.forEach(function(post) { %>
@@ -31,6 +59,13 @@
       <a href="/auth/discord">Login with Discord</a>
     <% } %>
 		</p>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js
+"></script>
+    <script>
+      $('.ui.dropdown').dropdown({ multiple: true });
+    </script>
   </body>
   </main>
   <footer>
