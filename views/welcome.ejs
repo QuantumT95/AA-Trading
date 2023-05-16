@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome <%= user.username %></title>
-  <link rel="stylesheet" href="../public/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../public/css/semantic.min.css">
 </head>
 <body>
   <a href="/" class="btn btn-primary">Home</a>
@@ -14,17 +14,19 @@
     <!-- <label for="trade">What I'm trading:</label>
     <input type="text" id="trade" name="trade"> -->
 
-    <div class="directorist-select directorist-select-multi" id="multiSelect" data-isSearch="true" data-multiSelect='[{value: "abul", key: 0}]' data-max="5">
-  <select name="trade">
-    <option value="">Select Item</option>
-    <option value="abul">Abul</option>
-    <option value="bacco">Bacco</option>
-    <option value="bodri">Bodri</option>
-    <option value="canmia">Canmia</option>
-    <option value="choncol">Choncol</option>
-    <option value="condon">Condon</option>
-  </select>
-</div>
+    <div class="ui fluid search selection dropdown">
+      <input type="hidden" name="trade">
+      <i class="dropdown icon"></i>
+      <div class="default text">Select Item</div>
+      <div class="menu">
+        <div class="item" data-value="abul">Abul</div>
+        <div class="item" data-value="bacco">Bacco</div>
+        <div class="item" data-value="bodri">Bodri</div>
+        <div class="item" data-value="canmia">Canmia</div>
+        <div class="item" data-value="choncol">Choncol</div>
+        <div class="item" data-value="condon">Condon</div>
+      </div>
+    </div>
 
     <label for="want">What I want for the trade:</label>
     <input type="text" id="want" name="want">
@@ -37,10 +39,13 @@
 
     <button type="submit">Create post</button>
   </form>
-
-  <script src="../utils/script.js"></script>
+  <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+  <script src="../utils/semantic.min.js"></script>
   <script>
-    pureScriptSelect('#multiSelect');
+  $('.ui.dropdown').dropdown({ multiple: true });
   </script>
 </body>
 </html>
