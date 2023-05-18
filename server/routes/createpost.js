@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/createpost", (req, res) => {
+router.post("/", (req, res) => {
   if (req.isAuthenticated()) {
     // Get the post data from the form
     const postText = req.body.postText;

@@ -16,7 +16,7 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
   <h1>Welcome, <%= user.username %>!</h1>
   <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" alt="Profile picture">
   <p>By creating a post on this website, you acknowledge and agree that your username will be publicly displayed. Please be cautious and avoid sharing any personally identifiable information or sensitive details in your posts. We are not responsible for any misuse or unauthorized use of the information you choose to disclose publicly. If you have any concerns about privacy or data protection, please review our privacy policy or contact us for further assistance.</p>
-  <form method="POST" action="/createpost">
+  <form id="createPostForm" method="POST" action="/createpost">
     <div class="ui multiple search selection dropdown" id="itemDropdown">
   <input type="hidden" name="trade">
   <i class="dropdown icon"></i>
@@ -53,6 +53,16 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
   <script src="
 https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js
 "></script>
+  <script>
+  document.getElementById("createPostForm").addEventListener("submit", function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Submit the form
+    this.submit();
+  });
+</script>
+
   <script>
   $('.ui.dropdown').dropdown({ multiple: true });
   </script>

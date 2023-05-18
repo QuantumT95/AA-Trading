@@ -130,6 +130,7 @@ app.get("/search", async (req, res) => {
 });
 
 app.use("/createpost", createPostRoute);
+app.post("/createpost", createPostRoute);
 
 app.use("/posts", postsRoute);
 
