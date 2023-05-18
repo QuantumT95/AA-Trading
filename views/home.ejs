@@ -7,6 +7,7 @@
     <link href="
 https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
 " rel="stylesheet">
+    <link href= "../public/css/semantic.cyborg.min.css" rel="stylesheet" type="text/css" />
   <script>
     const validUnits = <%- JSON.stringify(validUnits) %>;
   </script>
@@ -14,6 +15,13 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
   <body>
     <a href="/" class="btn btn-primary">Home</a>
     <a href="/welcome" class="btn btn-primary">Create Post</a>
+    <p>
+			<% if (user) { %>
+      <p>Welcome, <%= user.username %>!</p>
+    <% } else { %>
+      <a href="/auth/discord">Login with Discord</a>
+    <% } %>
+		</p>
     <header>Welcome to AA Trading!</header>
     <main>
     <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
@@ -52,13 +60,6 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
         </li>
       <% }); %>
     </ul>
-    <p>
-			<% if (user) { %>
-      <p>Welcome, <%= user.username %>!</p>
-    <% } else { %>
-      <a href="/auth/discord">Login with Discord</a>
-    <% } %>
-		</p>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="
 https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js

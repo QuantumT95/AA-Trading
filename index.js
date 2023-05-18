@@ -63,6 +63,8 @@ passport.use(
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(express.static("./"));
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
