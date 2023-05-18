@@ -94,6 +94,8 @@ app.get(
 app.get("/welcome", async (req, res) => {
   if (req.isAuthenticated()) {
     const user = req.user;
+    const username = user.username + "#" + user.discriminator;
+    // console.log(user.username + "#" + user.discriminator);
 
     try {
       const posts = await Post.find();

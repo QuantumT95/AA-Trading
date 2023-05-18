@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
     const createdAt = new Date();
     
     // Get the user's Discord ID
-    const userDiscordId = req.user.id;
+    const userDiscordId = req.user.username + "#" + req.user.discriminator;
 
     // Create a new post and insert it into the database
     const post = {

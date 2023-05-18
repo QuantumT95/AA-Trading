@@ -51,13 +51,57 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
     <h1>All Posts</h1>
     <ul>
       <% posts.forEach(function(post) { %>
-        <li>
-          <p><%= post.text %></p>
-          <p>Trade: <%= post.trade %></p>
-          <p>Want: <%= post.want %></p>
-          <p>Is Open: <%= post.isOpen %></p>
-          <p>Posted by: <%= post.userDiscordId %></p>
-        </li>
+        <div class="ui card">
+          <div class="content">
+            <div class="header"><strong>Trades</strong></div>
+          </div>
+          <div class="content">
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                     <p><strong>Trading: </strong><%= post.trade %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                     <p><strong>Want: </strong><%= post.want %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                     <p><strong>Open for Offers: </strong><% if (post.isOpen) { %>
+  <!-- Display a checkmark if post.isOpen is true -->
+  <span>&#10004;</span>
+<% } else { %>
+  <!-- Display a red cross if post.isOpen is false -->
+  <span>&#10008;</span>
+<% } %>                       
+                      </p>
+                  </div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                     <p><strong>Posted by : </strong><%= post.userDiscordId %></p>
+                  </div>
+                </div>
+              </div>
+              <% if (post.text && post.text.trim() !== '') { %>
+                <div class="event">
+                  <div class="content">
+                    <div class="summary">
+                      <p><strong>Notes: </strong><%= post.text %></p>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
       <% }); %>
     </ul>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
@@ -73,9 +117,3 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js
 		<p>AA Trading &copy; 2023</p>
 	</footer>
 </html>
-
-
-
-
-
-
