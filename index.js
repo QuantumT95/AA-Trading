@@ -112,11 +112,13 @@ app.get("/search", async (req, res) => {
   let query = {};
 
   if (trade) {
-    query.trade = { $regex: trade, $options: "i" };
+    const escapedTrade = escapeRegex(trade);
+    query.trade = { $regex: escapedTrade, $options: "i" };
   }
 
   if (want) {
-    query.want = { $regex: want, $options: "i" };
+    const escapedWant = escapeRegex(want);
+    query.want = { $regex: escapedWant, $options: "i" };
   }
 
   try {
@@ -128,6 +130,10 @@ app.get("/search", async (req, res) => {
     res.redirect("/");
   }
 });
+
+function escapeRegex(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 app.use("/createpost", createPostRoute);
 app.post("/createpost", createPostRoute);

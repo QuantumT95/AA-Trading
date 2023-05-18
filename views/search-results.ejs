@@ -1,18 +1,19 @@
 <head>
   <meta charset="UTF-8">
-    <link href="
-https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
-" rel="stylesheet">
-    <link href= "../public/css/semantic.cyborg.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" rel="stylesheet">
+  <link href="../public/css/semantic.cyborg.min.css" rel="stylesheet" type="text/css" />
 </head>
 
 <h1>Search Results</h1>
 
-<p>Showing results for:
+<p>
+  Showing results for:
   <% if (trade) { %>
     Trade: <%= trade %>
   <% } %>
-  <% if (trade && want) { %> and <% } %>
+  <% if (trade && want) { %>
+    and
+  <% } %>
   <% if (want) { %>
     Want: <%= want %>
   <% } %>
@@ -22,13 +23,60 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
   <ul>
     <% posts.forEach((post) => { %>
       <li>
-        <p>Notes: <%= post.text %></p>
-        <p>Trading: <%= post.trade %></p>
-        <p>Wants: <%= post.want %></p>
-        <p>Open to Offers: <%= post.isOpen %></p>
-        <p>Posted by: <%= post.userDiscordId %></p>
+        <div class="ui card">
+          <div class="content">
+            <div class="header"><strong>Trades</strong></div>
+          </div>
+          <div class="content">
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <p><strong>Trading: </strong><%= post.trade %></p>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <p><strong>Want: </strong><%= post.want %></p>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <p>
+                    <strong>Open for Offers: </strong>
+                    <% if (post.isOpen) { %>
+                      <!-- Display a checkmark if post.isOpen is true -->
+                      <span>&#10004;</span>
+                    <% } else { %>
+                      <!-- Display a red cross if post.isOpen is false -->
+                      <span>&#10008;</span>
+                    <% } %>                       
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="event">
+              <div class="content">
+                <div class="summary">
+                  <p><strong>Posted by: </strong><%= post.userDiscordId %></p>
+                </div>
+              </div>
+            </div>
+            <% if (post.text && post.text.trim() !== '') { %>
+              <div class="event">
+                <div class="content">
+                  <div class="summary">
+                    <p><strong>Notes: </strong><%= post.text %></p>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
       </li>
-      <!-- Display other relevant post information -->
     <% }); %>
   </ul>
 <% } else { %>
