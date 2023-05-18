@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
+router.post("/createpost", (req, res) => {
   if (req.isAuthenticated()) {
     // Get the post data from the form
     const postText = req.body.postText;
@@ -40,15 +40,15 @@ router.post("/", (req, res) => {
     postsCollection.insertOne(post, (err, result) => {
       if (err) {
         console.log(err);
-        res.redirect("/createpost");
+        res.redirect("/welcome");
       } else {
         console.log("Successfully created a new post!");
-        res.redirect("/welcome");
+        res.redirect("/");
       }
     });
   } else {
     // Redirect to the login page
-    res.redirect("/welcome");
+    res.redirect("/");
   }
 });
 
