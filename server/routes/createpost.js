@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
+router.post("/createpost", async (req, res) => {
   if (req.isAuthenticated()) {
     // Get the post data from the form
     const postText = req.body.postText;
@@ -36,20 +36,31 @@ router.post("/", (req, res) => {
 
     const db = client.db("test");
     const postsCollection = db.collection("posts");
-    
-    postsCollection.insertOne(post, (err, result) => {
-      if (err) {
-        console.log(err);
-        res.redirect("/welcome");
-      } else {
-        console.log("Successfully created a new post!");
-        res.redirect("/");
-      }
-    });
-  } else {
-    // Redirect to the login page
-    res.redirect("/");
+
+    try {
+      await postsCollection.insertOne(post);
+      console.log("Successfully created a new post!");
+      res.redirect("/"); // Redirect to the home page
+    } 
+    catch (err) {
+      console.log(err);
+      res.sendStatus(500); // Send an error response
+    }
+
   }
+  //   postsCollection.insertOne(post, (err, result) => {
+  //     if (err) {
+  //       console.log(err);
+  //       res.redirect("/welcome");
+  //     } else {
+  //       console.log("Successfully created a new post!");
+  //       res.redirect("/");
+  //     }
+  //   });
+  // } else {
+  //   // Redirect to the login page
+  //   res.redirect("/");
+  // }
 });
 
 module.exports = router;
