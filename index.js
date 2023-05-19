@@ -69,13 +69,28 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
   const user = req.user;
+  const perPage = 10; // Number of posts per page
+  const page = parseInt(req.query.page) || 1; // Current page number (default: 1)
+  
   try {
-    const posts = await Post.find({});
+    // Retrieve posts from the database with pagination
+    const posts = await Post.find()
+      .skip((page - 1) * perPage)
+      .limit(perPage)
+      .exec();
     console.log(posts); // check if posts are being fetched correctly
-    res.render("home", { user: user, posts: posts, validUnits });
+    res.render("home", { user: user, posts: posts, validUnits, currentPage: page });
   } catch (err) {
     console.log(err);
+    res.redirect("/");
   }
+  // try {
+  //   const posts = await Post.find({});
+  //   console.log(posts); // check if posts are being fetched correctly
+  //   res.render("home", { user: user, posts: posts, validUnits });
+  // } catch (err) {
+  //   console.log(err);
+  // }
 });
 
 app.get(
@@ -139,6 +154,40 @@ app.use("/createpost", createPostRoute);
 app.post("/createpost", createPostRoute);
 
 app.use("/posts", postsRoute);
+
+// Delete a post
+// app.delete("/posts/:postId", async (req, res) => {
+//   if (req.isAuthenticated()) {
+//     const postId = req.params.postId;
+//     const userId = req.user.username + "#" + req.user.discriminator;
+
+//     try {
+//       const post = await Post.findById(postId);
+
+//       if (!post) {
+//         // Post not found
+//         return res.status(404).json({ error: "Post not found" });
+//       }
+
+//       if (post.userDiscordId !== userId) {
+//         // User is not authorized to delete the post
+//         return res.status(403).json({ error: "Unauthorized" });
+//       }
+
+//       // Delete the post from the database
+//       await post.remove();
+
+//       return res.status(200).json({ message: "Post deleted successfully" });
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(500).json({ error: "Internal server error" });
+//     }
+//   } else {
+//     // User is not authenticated
+//     return res.status(401).json({ error: "Unauthorized" });
+//   }
+// });
+
 
 app.listen(3000, () => {
   console.log("Server started on port 3000");

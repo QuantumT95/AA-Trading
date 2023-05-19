@@ -48,19 +48,6 @@ router.post("/createpost", async (req, res) => {
     }
 
   }
-  //   postsCollection.insertOne(post, (err, result) => {
-  //     if (err) {
-  //       console.log(err);
-  //       res.redirect("/welcome");
-  //     } else {
-  //       console.log("Successfully created a new post!");
-  //       res.redirect("/");
-  //     }
-  //   });
-  // } else {
-  //   // Redirect to the login page
-  //   res.redirect("/");
-  // }
 });
 
 module.exports = router;

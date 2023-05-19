@@ -25,6 +25,7 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
     <header>Welcome to AA Trading!</header>
     <main>
     <p>This website is used for players on Anime Adventures to make and view posts regarding trades for in-game assets. Anyone can view posts but only people who login using their Discord can create posts and delete their posts. </p>
+    <p>Posts are deleted at the end of every day </p>
     <form action="/search" method="GET">
       <div class="ui multiple search selection dropdown" id="itemDropdown">
         <input type="hidden" name="trade">
@@ -101,13 +102,26 @@ https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css
                 </div>
               <% } %>
             </div>
+            <!-- <button class="delete-button">Delete</button> -->
           </div>
       <% }); %>
     </ul>
+    <!-- Pagination links -->
+    <div>
+      <% if (currentPage > 1) { %>
+        <a href="/?page=<%= currentPage - 1 %>">Previous</a>
+      <% } %>
+    
+      <% if (posts.length === 10) { %>
+        <a href="/?page=<%= currentPage + 1 %>">Next</a>
+      <% } %>
+    </div>
+        
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="
 https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js
 "></script>
+    <!-- <script src="../server/routes/deletepost.js"></script> -->
     <script>
       $('.ui.dropdown').dropdown({ multiple: true });
     </script>
